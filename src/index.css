@@ -1,0 +1,70 @@
+/* ── Design Tokens ──────────────────────────────────────────────────────────── */
+:root {
+  --color-bg:            #07080f;
+  --color-surface-1:     #0a0f18;
+  --color-surface-2:     #0d1622;
+  --color-surface-3:     #111927;
+  --color-surface-danger:#140708;
+  --color-surface-success:#071408;
+  --color-border-subtle: #182030;
+  --color-border:        #243548;
+  --color-border-active: #b8880c;
+  --color-text-1:        #d0dce8;
+  --color-text-2:        #8aa8c0;
+  --color-text-3:        #5a7890;
+  --color-gold:          #b8880c;
+  --color-gold-bright:   #d4a020;
+  --color-gold-dim:      #9a7828;
+  --color-gold-surface:  #191408;
+  --color-gold-border:   #5a4010;
+  --color-run:           #c07040;
+  --color-pass:          #3a80e0;
+  --color-hybrid:        #7858a0;
+  --color-pressure:      #bb5050;
+  --color-success:       #5a9870;
+  --color-danger:        #b05050;
+  --font-mono: 'IBM Plex Mono', 'SF Mono', monospace;
+  --font-sans: 'IBM Plex Sans', 'SF Pro Text', system-ui, sans-serif;
+  --nav-h:     56px;
+  --nav-total: calc(56px + env(safe-area-inset-bottom));
+  --r-sm: 6px;
+  --r-md: 8px;
+  --r-lg: 12px;
+}
+
+/* ── Reset ──────────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+html, body {
+  margin: 0; padding: 0;
+  background: var(--color-bg);
+  height: 100%; width: 100%;
+  overflow: hidden;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+  color: var(--color-text-1);
+}
+
+#root {
+  height: 100dvh;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: var(--nav-total);
+}
+#root::-webkit-scrollbar { display: none; }
+
+.safe-top    { padding-top: env(safe-area-inset-top); }
+.safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
+
+button { touch-action: manipulation; -webkit-appearance: none; }
+input, textarea { -webkit-appearance: none; border-radius: 0; }
+button, label { user-select: none; -webkit-user-select: none; }
+
+@keyframes screenEnter {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.screen-enter { animation: screenEnter 220ms ease forwards; }
