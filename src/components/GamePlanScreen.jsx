@@ -325,73 +325,73 @@ export default function GamePlanScreen({
         )}
       </div>
 
-      {/* ── Quick Adjust sheet ── */}
+    </div>
+
+      {/* ── Quick Adjust modal — outside screen-enter to avoid transform stacking context ── */}
       {quickAdjOpen && (
-        <div style={{
-          position: "fixed", left: 0, right: 0,
-          bottom: "var(--nav-total)",
-          zIndex: 85,
-          background: "linear-gradient(to top, #07090f 90%, transparent)",
-          borderTop: "2px solid var(--color-gold)",
-          padding: "14px 16px 20px",
-          maxWidth: 720, margin: "0 auto",
-        }}>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
-            <div>
-              <div style={{ fontSize: 10, color: "var(--color-gold-dim)", letterSpacing: "2px", textTransform: "uppercase", fontFamily: "var(--font-mono)", marginBottom: 2 }}>
-                In-Game Adjust
-              </div>
-              <div style={{ fontSize: 12, color: "var(--color-text-2)", fontFamily: "var(--font-mono)" }}>
-                Tap a trait to update instantly
-              </div>
-            </div>
-            <button
-              onClick={() => setQuickAdjOpen(false)}
-              style={{ minHeight: 36, padding: "0 12px", background: "transparent", border: "1px solid var(--color-border)", borderRadius: "var(--r-sm)", color: "var(--color-text-2)", fontSize: 12, cursor: "pointer" }}
-            >
-              Close
-            </button>
-          </div>
-          <div style={{ maxHeight: 240, overflowY: "auto" }}>
-            {TRAITS.map(group => (
-              <div key={group.id} style={{ marginBottom: 12 }}>
-                <div style={{ fontSize: 10, color: "var(--color-text-3)", letterSpacing: "1px", textTransform: "uppercase", fontFamily: "var(--font-mono)", marginBottom: 7 }}>{group.label}</div>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-                  {group.items.map(item => {
-                    const on = (sel[group.id] || []).includes(item.id);
-                    return (
-                      <button
-                        key={item.id}
-                        onClick={() => {
-                          toggle(group.id, item.id);
-                          const newSel = { ...sel };
-                          const cur = newSel[group.id] || [];
-                          newSel[group.id] = cur.includes(item.id) ? cur.filter(x => x !== item.id) : [...cur, item.id];
-                          setScored(scoreAll(Object.values(newSel).flat(), myBook));
-                          setSelFm(null);
-                        }}
-                        style={{
-                          minHeight: 32, padding: "0 12px",
-                          borderRadius: 16,
-                          border: on ? "1px solid var(--color-gold)" : "1px solid var(--color-border)",
-                          background: on ? "var(--color-gold-surface)" : "var(--color-surface-2)",
-                          color: on ? "var(--color-gold-bright)" : "var(--color-text-1)",
-                          fontSize: 12, cursor: "pointer",
-                          transition: "all 120ms ease",
-                        }}
-                      >
-                        {on ? "✓ " : ""}{item.label}
-                      </button>
-                    );
-                  })}
+        <div
+          onClick={() => setQuickAdjOpen(false)}
+          style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0,0,0,0.85)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 500, padding: 20 }}
+        >
+          <div
+            onClick={e => e.stopPropagation()}
+            style={{ background: "var(--color-surface-2)", border: "1px solid var(--color-gold)", borderRadius: "var(--r-lg)", padding: "20px 22px 16px", width: "100%", maxWidth: 600, maxHeight: "80dvh", display: "flex", flexDirection: "column" }}
+          >
+            <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 14, flexShrink: 0 }}>
+              <div>
+                <div style={{ fontSize: 10, color: "var(--color-gold-dim)", letterSpacing: "2px", textTransform: "uppercase", fontFamily: "var(--font-mono)", marginBottom: 2 }}>
+                  In-Game Adjust
+                </div>
+                <div style={{ fontSize: 12, color: "var(--color-text-2)", fontFamily: "var(--font-mono)" }}>
+                  Tap a trait to update instantly
                 </div>
               </div>
-            ))}
+              <button
+                onClick={() => setQuickAdjOpen(false)}
+                style={{ minHeight: 32, padding: "0 12px", background: "transparent", border: "1px solid var(--color-border)", borderRadius: "var(--r-sm)", color: "var(--color-text-2)", fontSize: 12, cursor: "pointer", flexShrink: 0, marginLeft: 12 }}
+              >
+                Close
+              </button>
+            </div>
+            <div style={{ overflowY: "auto", flex: 1 }}>
+              {TRAITS.map((group, i) => (
+                <div key={group.id} style={{ marginBottom: 16, paddingBottom: 16, borderBottom: i < TRAITS.length - 1 ? "1px solid var(--color-border)" : "none" }}>
+                  <div style={{ fontSize: 10, color: "var(--color-gold-dim)", letterSpacing: "2px", textTransform: "uppercase", fontFamily: "var(--font-mono)", marginBottom: 8, fontWeight: "700" }}>{group.label}</div>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+                    {group.items.map(item => {
+                      const on = (sel[group.id] || []).includes(item.id);
+                      return (
+                        <button
+                          key={item.id}
+                          onClick={() => {
+                            toggle(group.id, item.id);
+                            const newSel = { ...sel };
+                            const cur = newSel[group.id] || [];
+                            newSel[group.id] = cur.includes(item.id) ? cur.filter(x => x !== item.id) : [...cur, item.id];
+                            setScored(scoreAll(Object.values(newSel).flat(), myBook));
+                            setSelFm(null);
+                          }}
+                          style={{
+                            minHeight: 32, padding: "0 12px",
+                            borderRadius: 16,
+                            border: on ? "1px solid var(--color-gold)" : "1px solid var(--color-border)",
+                            background: on ? "var(--color-gold-surface)" : "var(--color-surface-2)",
+                            color: on ? "var(--color-gold-bright)" : "var(--color-text-1)",
+                            fontSize: 12, cursor: "pointer",
+                            transition: "all 120ms ease",
+                          }}
+                        >
+                          {on ? "✓ " : ""}{item.label}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       )}
-
-    </div>
 
       {/* ── Recommended Playbook modal — outside screen-enter to avoid transform stacking context ── */}
       {showRecModal && recBook && (

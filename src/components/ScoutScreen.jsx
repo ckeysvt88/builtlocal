@@ -15,8 +15,10 @@ export default function ScoutScreen({
   profiles, saveProfiles,
   importMsg, exportProfiles, importProfiles,
   toggle, build,
+  navigateToNotes,
 }) {
   const [showPB, setShowPB] = useState(false);
+  const [pendingDelete, setPendingDelete] = useState(null);
 
   return (
     <div className="screen-enter" style={{ fontFamily: "var(--font-sans)", background: "var(--color-bg)", minHeight: "100dvh", color: "var(--color-text-1)", maxWidth: 720, margin: "0 auto" }}>
@@ -96,7 +98,7 @@ export default function ScoutScreen({
               <span>Saved Opponents</span>
               <div style={{ display: "flex", gap: 6 }}>
                 <button onClick={exportProfiles} style={smallBtn}>Export</button>
-                <label style={smallBtn}>
+                <label style={{ ...smallBtn, display: "inline-flex", alignItems: "center", justifyContent: "center", textTransform: "none" }}>
                   Import
                   <input type="file" accept=".json" onChange={importProfiles} style={{ display: "none" }} />
                 </label>
@@ -105,13 +107,21 @@ export default function ScoutScreen({
             {importMsg && <div style={{ fontSize: 11, color: "var(--color-success)", marginBottom: 8, fontFamily: "var(--font-mono)" }}>{importMsg}</div>}
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
               {Object.keys(profiles).map(n => (
-                <div key={n} style={{ display: "flex", alignItems: "center", background: "var(--color-surface-1)", border: "1px solid var(--color-border)", borderRadius: "var(--r-md)", overflow: "hidden", minHeight: 36 }}>
-                  <button onClick={() => setSel(profiles[n])} style={{ padding: "0 12px", minHeight: 36, background: "transparent", border: "none", color: "var(--color-text-2)", fontSize: 12, cursor: "pointer", fontFamily: "var(--font-mono)" }}>
-                    {n}
-                  </button>
-                  <div style={{ width: 1, alignSelf: "stretch", background: "var(--color-border)" }}/>
-                  <button onClick={() => saveProfiles(p => { const x = { ...p }; delete x[n]; return x; })} style={{ padding: "0 10px", minHeight: 36, background: "transparent", border: "none", color: "var(--color-danger)", fontSize: 13, cursor: "pointer" }}>✕</button>
-                </div>
+                pendingDelete === n ? (
+                  <div key={n} style={{ display: "flex", alignItems: "center", background: "var(--color-surface-1)", border: "1px solid var(--color-danger)", borderRadius: "var(--r-md)", overflow: "hidden", minHeight: 36, padding: "0 4px", gap: 4 }}>
+                    <span style={{ fontSize: 11, color: "var(--color-danger)", fontFamily: "var(--font-mono)", padding: "0 6px", whiteSpace: "nowrap" }}>Delete "{n}"?</span>
+                    <button onClick={() => { saveProfiles(p => { const x = { ...p }; delete x[n]; return x; }); setPendingDelete(null); }} style={{ ...smallBtn, color: "var(--color-danger)", borderColor: "var(--color-danger)" }}>Yes</button>
+                    <button onClick={() => setPendingDelete(null)} style={smallBtn}>No</button>
+                  </div>
+                ) : (
+                  <div key={n} style={{ display: "flex", alignItems: "center", background: "var(--color-surface-1)", border: "1px solid var(--color-border)", borderRadius: "var(--r-md)", overflow: "hidden", minHeight: 36 }}>
+                    <button onClick={() => navigateToNotes(n)} style={{ padding: "0 12px", minHeight: 36, background: "transparent", border: "none", color: "var(--color-text-2)", fontSize: 12, cursor: "pointer", fontFamily: "var(--font-mono)" }}>
+                      {n}
+                    </button>
+                    <div style={{ width: 1, alignSelf: "stretch", background: "var(--color-border)" }}/>
+                    <button onClick={() => setPendingDelete(n)} style={{ padding: "0 10px", minHeight: 36, background: "transparent", border: "none", color: "var(--color-danger)", fontSize: 13, cursor: "pointer" }}>✕</button>
+                  </div>
+                )
               ))}
             </div>
           </div>

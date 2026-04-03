@@ -41,6 +41,7 @@ export default function App() {
   const [modal, setModal]       = useState(false);
   const [saveName, setSaveName] = useState("");
   const [importMsg, setImportMsg] = useState(null);
+  const [notesInitProfile, setNotesInitProfile] = useState(null);
 
   // ── Compare state ─────────────────────────────────────────────────────────────
   const [compareA, setCompareA] = useState("3-3-5 Tite");
@@ -167,6 +168,7 @@ export default function App() {
     ddDown, setDdDown,
     ddDistance, setDdDistance,
     setStep: navigate,
+    navigateToNotes: (profileName) => { setNotesInitProfile(profileName); navigate("notes"); },
   };
 
   return (
@@ -184,7 +186,7 @@ export default function App() {
       {step === "scout"   && <ScoutScreen   key="scout"   {...sharedProps} />}
       {step === "plan"    && <GamePlanScreen key="plan"    {...sharedProps} />}
       {step === "compare" && <CompareScreen  key="compare" compareA={compareA} setCompareA={setCompareA} compareB={compareB} setCompareB={setCompareB} setStep={navigate} />}
-      {step === "notes"   && <NotesScreen    key="notes"   profiles={profiles} setStep={navigate} />}
+      {step === "notes"   && <NotesScreen    key={"notes" + (notesInitProfile || "")}   profiles={profiles} setStep={navigate} initProfile={notesInitProfile} />}
 
       <BottomNav step={step} setStep={navigate} hasPlan={scored.length > 0} />
     </>

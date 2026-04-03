@@ -35,10 +35,12 @@ function saveLog(data) {
   try { localStorage.setItem('cfb26_drive_log', JSON.stringify(data)); } catch(e) {}
 }
 
-export default function NotesScreen({ profiles, setStep }) {
+export default function NotesScreen({ profiles, setStep, initProfile }) {
   const profileKeys    = Object.keys(profiles);
   const [activeTab,    setActiveTab]    = useState("notes");
-  const [activeProfile,setActiveProfile]= useState(profileKeys.length ? profileKeys[0] : "_general");
+  const [activeProfile,setActiveProfile]= useState(
+    initProfile && profileKeys.includes(initProfile) ? initProfile : (profileKeys.length ? profileKeys[0] : "_general")
+  );
 
   // ── Game Notes ──────────────────────────────────────────────────────────────
   const [allNotes, setAllNotes] = useState(loadNotes);
