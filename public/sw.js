@@ -1,5 +1,5 @@
 const CACHE = 'schemebuilders-v2-1';
-const BASE  = '/schemebuilderv2/';
+const BASE  = '/';
 const ASSETS = [
   BASE,
   BASE + 'index.html',
