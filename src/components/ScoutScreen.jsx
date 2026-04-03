@@ -22,7 +22,7 @@ export default function ScoutScreen({
     <div className="screen-enter" style={{ fontFamily: "var(--font-sans)", background: "var(--color-bg)", minHeight: "100dvh", color: "var(--color-text-1)", maxWidth: 720, margin: "0 auto" }}>
 
       {/* ── Hero Image — topmost, above header ── */}
-      <div style={{ position: "relative", overflow: "hidden", flexShrink: 0, margin: "0 auto", paddingTop: "env(safe-area-inset-top)", width: "81%", aspectRatio: "5/2" }}>
+      <div style={{ position: "relative", overflow: "hidden", flexShrink: 0, margin: "0 auto", paddingTop: "env(safe-area-inset-top)", width: "69%", aspectRatio: "5/2" }}>
         <img
           src={`${import.meta.env.BASE_URL}header.png`}
           alt=""
