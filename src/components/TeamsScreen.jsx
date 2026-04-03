@@ -37,7 +37,7 @@ export default function TeamsScreen({ onBuildFromTeam }) {
             background: "var(--color-surface-2)",
             border: "1px solid var(--color-border)",
             borderRadius: "var(--r-md)",
-            color: "var(--color-text-1)", fontSize: 14,
+            color: "var(--color-text-1)", fontSize: 16,
             fontFamily: "var(--font-sans)",
             boxSizing: "border-box", outline: "none",
           }}
@@ -70,7 +70,7 @@ export default function TeamsScreen({ onBuildFromTeam }) {
 
       {/* Team list */}
       <div style={{ padding: "12px 14px 24px" }}>
-        <div style={{ fontSize: 11, color: "var(--color-text-3)", fontFamily: "var(--font-mono)", marginBottom: 10 }}>
+        <div style={{ fontSize: 14, color: "var(--color-text-2)", fontFamily: "var(--font-mono)", marginBottom: 10 }}>
           {filteredTeams.length} team{filteredTeams.length !== 1 ? "s" : ""} · tap to build game plan
         </div>
 

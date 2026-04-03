@@ -21,8 +21,21 @@ export default function ScoutScreen({
   return (
     <div className="screen-enter" style={{ fontFamily: "var(--font-sans)", background: "var(--color-bg)", minHeight: "100dvh", color: "var(--color-text-1)", maxWidth: 720, margin: "0 auto" }}>
 
+      {/* ── Hero Image — topmost, above header ── */}
+      <div style={{ position: "relative", overflow: "hidden", flexShrink: 0, margin: "0 auto", paddingTop: "env(safe-area-inset-top)", width: "81%", aspectRatio: "5/2" }}>
+        <img
+          src={`${import.meta.env.BASE_URL}header.png`}
+          alt=""
+          style={{ display: "block", width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 42%" }}
+        />
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, var(--color-bg) 0%, transparent 21%)" }} />
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to left, var(--color-bg) 0%, transparent 21%)" }} />
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, var(--color-bg) 0%, transparent 75%)" }} />
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, var(--color-bg) 0%, transparent 29%)" }} />
+      </div>
+
       {/* ── Header ── */}
-      <div style={{ background: "linear-gradient(135deg, #07090f, #0c1220)", borderBottom: "2px solid var(--color-gold)", padding: "12px 16px 10px", paddingTop: "calc(env(safe-area-inset-top) + 12px)", position: "sticky", top: 0, zIndex: 80 }}>
+      <div style={{ background: "linear-gradient(135deg, #07090f, #0c1220)", borderBottom: "2px solid var(--color-gold)", padding: "12px 16px 10px", paddingTop: 12, position: "sticky", top: 0, zIndex: 80 }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: showPB ? 10 : 0 }}>
           <div>
             <div style={{ fontSize: 10, letterSpacing: "2px", color: "var(--color-gold-dim)", textTransform: "uppercase", fontWeight: "700", fontFamily: "var(--font-mono)", marginBottom: 2 }}>
@@ -74,24 +87,7 @@ export default function ScoutScreen({
         )}
       </div>
 
-      {/* ── Hero Image — sits in flow to reserve space, content overlaps from below ── */}
-      <div style={{ position: "relative", overflow: "hidden", flexShrink: 0, margin: "0 auto", width: "81%", aspectRatio: "5/2" }}>
-        <img
-          src={`${import.meta.env.BASE_URL}header.png`}
-          alt=""
-          style={{ display: "block", width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 62%" }}
-        />
-        {/* Fade left */}
-        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, var(--color-bg) 0%, transparent 21%)" }} />
-        {/* Fade right */}
-        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to left, var(--color-bg) 0%, transparent 21%)" }} />
-        {/* Fade bottom */}
-        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, var(--color-bg) 0%, transparent 58%)" }} />
-        {/* Fade top */}
-        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, var(--color-bg) 0%, transparent 29%)" }} />
-      </div>
-
-      <div style={{ padding: "16px 16px 32px", marginTop: -60, position: "relative", zIndex: 1 }}>
+      <div style={{ padding: "16px 16px 32px", position: "relative", zIndex: 1 }}>
 
         {/* ── Saved Opponents ── */}
         {Object.keys(profiles).length > 0 && (

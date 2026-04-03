@@ -120,61 +120,71 @@ export default function GamePlanScreen({
         {/* Main tabs */}
         <div style={{ display: "flex", gap: 8 }}>
           {[
-            { id: "personnel", l: "By Personnel" },
             { id: "all",       l: `All ${scored.length}` },
-          ].map(t => (
-            <button
-              key={t.id}
-              onClick={() => setMainTab(t.id)}
-              style={{
-                minHeight: 36, padding: "0 14px",
-                background: mainTab === t.id ? "var(--color-gold-surface)" : "transparent",
-                border: `1px solid ${mainTab === t.id ? "var(--color-gold)" : "var(--color-border)"}`,
-                borderRadius: "var(--r-sm)",
-                color: mainTab === t.id ? "var(--color-gold)" : "var(--color-text-2)",
-                fontSize: 12, fontWeight: mainTab === t.id ? "700" : "400",
-                cursor: "pointer",
-                fontFamily: "var(--font-mono)",
-                transition: "all 150ms ease",
-              }}
-            >
-              {t.l}
-            </button>
-          ))}
+            { id: "personnel", l: "By Personnel" },
+          ].map(t => {
+            const isActive = mainTab === t.id;
+            const isAllWithBook = t.id === "all" && isActive && myBook !== "All";
+            return (
+              <button
+                key={t.id}
+                onClick={() => setMainTab(t.id)}
+                style={{
+                  minHeight: 36, padding: "0 14px",
+                  background: isAllWithBook ? "#071408" : isActive ? "var(--color-gold-surface)" : "transparent",
+                  border: `1px solid ${isAllWithBook ? "var(--color-success)" : isActive ? "var(--color-gold)" : "var(--color-border-subtle)"}`,
+                  borderRadius: "var(--r-sm)",
+                  color: isAllWithBook ? "var(--color-success)" : isActive ? "var(--color-gold)" : "var(--color-text-3)",
+                  fontSize: 12, fontWeight: isActive ? "700" : "400",
+                  cursor: "pointer",
+                  fontFamily: "var(--font-mono)",
+                  transition: "all 150ms ease",
+                  opacity: isActive ? 1 : 0.6,
+                }}
+              >
+                {t.l}
+              </button>
+            );
+          })}
         </div>
       </div>
 
       <div style={{ padding: "14px 16px" }}>
 
         {/* ── Recommended Playbook banner ── */}
-        {recBook && (
-          <button
-            onClick={() => setShowRecModal(true)}
-            style={{
-              width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between",
-              background: "#07120a", border: "1px solid #2a5028",
-              borderLeft: "3px solid var(--color-success)",
-              borderRadius: "var(--r-md)",
-              padding: "11px 14px", marginBottom: 14,
-              cursor: "pointer", textAlign: "left",
-              transition: "background 150ms ease",
-              minHeight: 52,
-            }}
-          >
-            <div>
-              <div style={{ fontSize: 10, color: "var(--color-success)", letterSpacing: "1.5px", textTransform: "uppercase", fontFamily: "var(--font-mono)", marginBottom: 3 }}>
-                Recommended Playbook
+        {recBook && (() => {
+          const isActive = myBook === recBook.book;
+          return (
+            <button
+              onClick={() => setShowRecModal(true)}
+              style={{
+                width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between",
+                background: isActive ? "#0d2a12" : "#061009",
+                border: `1px solid ${isActive ? "#3a7035" : "#1a3820"}`,
+                borderLeft: `3px solid ${isActive ? "var(--color-success)" : "#2a5030"}`,
+                borderRadius: "var(--r-md)",
+                padding: "11px 14px", marginBottom: 14,
+                cursor: "pointer", textAlign: "left",
+                transition: "all 150ms ease",
+                minHeight: 52,
+                opacity: isActive ? 1 : 0.8,
+              }}
+            >
+              <div>
+                <div style={{ fontSize: 10, color: isActive ? "var(--color-success)" : "#4a8858", letterSpacing: "1.5px", textTransform: "uppercase", fontFamily: "var(--font-mono)", marginBottom: 3 }}>
+                  Recommended Playbook
+                </div>
+                <div style={{ fontSize: 14, fontWeight: "700", color: isActive ? "#90d070" : "#6aaa78", fontFamily: "var(--font-mono)" }}>
+                  {recBook.book}
+                  <span style={{ fontSize: 11, color: isActive ? "var(--color-success)" : "#4a8858", fontWeight: "400", marginLeft: 8 }}>
+                    · {recBook.confidence} confidence
+                  </span>
+                </div>
               </div>
-              <div style={{ fontSize: 14, fontWeight: "700", color: "#90d070", fontFamily: "var(--font-mono)" }}>
-                {recBook.book}
-                <span style={{ fontSize: 11, color: "var(--color-success)", fontWeight: "400", marginLeft: 8 }}>
-                  · {recBook.confidence} confidence
-                </span>
-              </div>
-            </div>
-            <span style={{ color: "var(--color-success)", fontSize: 18, marginLeft: 10 }}>›</span>
-          </button>
-        )}
+              <span style={{ color: isActive ? "var(--color-success)" : "#4a8858", fontSize: 18, marginLeft: 10 }}>›</span>
+            </button>
+          );
+        })()}
 
         {/* ── Down & Distance filter ── */}
         <div style={{ background: "var(--color-surface-1)", border: "1px solid var(--color-border-subtle)", borderRadius: "var(--r-md)", padding: "12px 14px", marginBottom: 16 }}>
@@ -212,7 +222,7 @@ export default function GamePlanScreen({
                 background: "var(--color-bg)",
                 border: `1px solid ${ddDistance ? "var(--color-gold)" : "var(--color-border)"}`,
                 borderRadius: "var(--r-sm)",
-                color: "var(--color-text-1)", fontSize: 13,
+                color: "var(--color-text-1)", fontSize: 16,
                 fontFamily: "var(--font-mono)", outline: "none",
               }}
             />
