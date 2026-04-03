@@ -22,7 +22,7 @@ export default function App() {
   const [scored, setScored]             = useState([]);
   const [activeP, setActiveP]           = useState(null);
   const [selFm, setSelFm]               = useState(null);
-  const [mainTab, setMainTab]           = useState("all");
+  const [mainTab, setMainTab]           = useState("personnel");
   const [quickAdjOpen, setQuickAdjOpen] = useState(false);
   const [showRecModal, setShowRecModal] = useState(false);
   const [shareToast, setShareToast]     = useState(null);
@@ -87,7 +87,7 @@ export default function App() {
     setScored(results);
     setActiveP((personnelSel.length ? personnelSel : ["p11"])[0]);
     setSelFm(null);
-    setMainTab("all");
+    setMainTab("personnel");
     navigate("plan");
     document.getElementById('root')?.scrollTo(0, 0);
   };
@@ -178,7 +178,7 @@ export default function App() {
         setSel({ _team: team.traits });
         setScored(results);
         setActiveP(team.traits.find(t => ["p10","p11","p12","p21","p22","trips","empty"].includes(t)) || "p11");
-        setSelFm(null); setMainTab("all"); navigate("plan");
+        setSelFm(null); setMainTab("personnel"); navigate("plan");
         document.getElementById('root')?.scrollTo(0, 0);
       }} />}
       {step === "scout"   && <ScoutScreen   key="scout"   {...sharedProps} />}

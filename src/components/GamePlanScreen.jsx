@@ -117,36 +117,6 @@ export default function GamePlanScreen({
           </div>
         </div>
 
-        {/* Main tabs */}
-        <div style={{ display: "flex", gap: 8 }}>
-          {[
-            { id: "all",       l: `All ${scored.length}` },
-            { id: "personnel", l: "By Personnel" },
-          ].map(t => {
-            const isActive = mainTab === t.id;
-            const isAllWithBook = t.id === "all" && isActive && myBook !== "All";
-            return (
-              <button
-                key={t.id}
-                onClick={() => setMainTab(t.id)}
-                style={{
-                  minHeight: 36, padding: "0 14px",
-                  background: isAllWithBook ? "#071408" : isActive ? "var(--color-gold-surface)" : "transparent",
-                  border: `1px solid ${isAllWithBook ? "var(--color-success)" : isActive ? "var(--color-gold)" : "var(--color-border-subtle)"}`,
-                  borderRadius: "var(--r-sm)",
-                  color: isAllWithBook ? "var(--color-success)" : isActive ? "var(--color-gold)" : "var(--color-text-3)",
-                  fontSize: 12, fontWeight: isActive ? "700" : "400",
-                  cursor: "pointer",
-                  fontFamily: "var(--font-mono)",
-                  transition: "all 150ms ease",
-                  opacity: isActive ? 1 : 0.6,
-                }}
-              >
-                {t.l}
-              </button>
-            );
-          })}
-        </div>
       </div>
 
       <div style={{ padding: "14px 16px" }}>
