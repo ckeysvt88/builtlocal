@@ -89,7 +89,7 @@ export default function App() {
     setSelFm(null);
     setMainTab("personnel");
     navigate("plan");
-    window.scrollTo(0, 0);
+    document.getElementById('root')?.scrollTo(0, 0);
   };
 
   const buildShareText = () => {
@@ -179,7 +179,7 @@ export default function App() {
         setScored(results);
         setActiveP(team.traits.find(t => ["p10","p11","p12","p21","p22","trips","empty"].includes(t)) || "p11");
         setSelFm(null); setMainTab("personnel"); navigate("plan");
-        window.scrollTo(0, 0);
+        document.getElementById('root')?.scrollTo(0, 0);
       }} />}
       {step === "scout"   && <ScoutScreen   key="scout"   {...sharedProps} />}
       {step === "plan"    && <GamePlanScreen key="plan"    {...sharedProps} />}

@@ -74,7 +74,24 @@ export default function ScoutScreen({
         )}
       </div>
 
-      <div style={{ padding: "16px 16px 32px" }}>
+      {/* ── Hero Image — sits in flow to reserve space, content overlaps from below ── */}
+      <div style={{ position: "relative", overflow: "hidden", flexShrink: 0, margin: "0 16px", aspectRatio: "5/2" }}>
+        <img
+          src={`${import.meta.env.BASE_URL}header.png`}
+          alt=""
+          style={{ display: "block", width: "100%", height: "100%", objectFit: "cover", objectPosition: "center center" }}
+        />
+        {/* Fade left */}
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, var(--color-bg) 0%, transparent 18%)" }} />
+        {/* Fade right */}
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to left, var(--color-bg) 0%, transparent 18%)" }} />
+        {/* Fade bottom */}
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, var(--color-bg) 0%, transparent 50%)" }} />
+        {/* Fade top */}
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, var(--color-bg) 0%, transparent 25%)" }} />
+      </div>
+
+      <div style={{ padding: "16px 16px 32px", marginTop: -60, position: "relative", zIndex: 1 }}>
 
         {/* ── Saved Opponents ── */}
         {Object.keys(profiles).length > 0 && (

@@ -8,7 +8,7 @@ import { getAvailableFamilies } from '../data/personnel.js';
 import { getSituationTip, situationLabel } from '../engine/downDistance.js';
 import FormationCard, { PC, PL } from './FormationCard.jsx';
 import FormationDetail from './FormationDetail.jsx';
-import ThemeToggle from './ThemeToggle.jsx';
+
 
 export default function GamePlanScreen({
   sel, setSel, flat, personnelSel,
@@ -23,7 +23,7 @@ export default function GamePlanScreen({
   toggle,
   compareA, setCompareA, compareB, setCompareB,
   ddDown, setDdDown, ddDistance, setDdDistance,
-  setStep, isDark, toggleTheme,
+  setStep,
 }) {
   const [personnelSel2] = useState(personnelSel.length ? personnelSel : ["p11"]);
 
@@ -86,6 +86,7 @@ export default function GamePlanScreen({
   const situationTip = getSituationTip(Number(ddDown), Number(ddDistance));
 
   return (
+    <>
     <div className="screen-enter" style={{ fontFamily: "var(--font-sans)", background: "var(--color-bg)", minHeight: "100dvh", color: "var(--color-text-1)", maxWidth: 720, margin: "0 auto" }}>
 
       {/* ── Header ── */}
@@ -93,14 +94,13 @@ export default function GamePlanScreen({
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
           <div>
             <div style={{ fontSize: 10, letterSpacing: "2px", color: "var(--color-gold-dim)", textTransform: "uppercase", fontWeight: "700", fontFamily: "var(--font-mono)", marginBottom: 2 }}>
-              CFB · Game Plan
+              Scheme Builders
             </div>
             <div style={{ fontSize: 17, fontWeight: "700", color: "var(--color-text-1)", fontFamily: "var(--font-mono)", letterSpacing: "-0.2px" }}>
-              {scored.length} Formation{scored.length !== 1 ? "s" : ""}{myBook !== "All" ? " · " + myBook : ""}
+              Defensive Gameplan — {scored.length} Formation{scored.length !== 1 ? "s" : ""}{myBook !== "All" ? " · " + myBook : ""}
             </div>
           </div>
           <div style={{ display: "flex", gap: 6, alignItems: "center", flexShrink: 0 }}>
-            <ThemeToggle isDark={isDark} onToggle={toggleTheme} />
             <button onClick={() => setStep("notes")} style={hdrBtn} aria-label="Notes">
               Notes
             </button>
@@ -411,11 +411,13 @@ export default function GamePlanScreen({
         </div>
       )}
 
-      {/* ── Recommended Playbook modal ── */}
+    </div>
+
+      {/* ── Recommended Playbook modal — outside screen-enter to avoid transform stacking context ── */}
       {showRecModal && recBook && (
         <div
           onClick={() => setShowRecModal(false)}
-          style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.85)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 200, padding: 20 }}
+          style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0,0,0,0.85)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 500, padding: 20 }}
         >
           <div
             onClick={e => e.stopPropagation()}
@@ -450,7 +452,7 @@ export default function GamePlanScreen({
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }
 

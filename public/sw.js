@@ -1,8 +1,9 @@
-const CACHE = 'schemebuilders-v2';
+const CACHE = 'schemebuilders-v2-1';
+const BASE  = '/schemebuilderv2/';
 const ASSETS = [
-  '/',
-  '/index.html',
-  '/manifest.json',
+  BASE,
+  BASE + 'index.html',
+  BASE + 'manifest.json',
 ];
 
 self.addEventListener('install', e => {

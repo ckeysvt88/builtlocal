@@ -10,7 +10,7 @@
   <meta name="theme-color" content="#07080f"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-  <title>Scheme Builders</title>
+  <title>CFB · Defensive Intelligence Systems</title>
   <meta property="og:title" content="Scheme Builders"/>
   <meta property="og:description" content="Scout opponents, build defensive game plans, and find the right formations for CFB26."/>
   <meta property="og:image" content="/og-image.png"/>
@@ -31,14 +31,6 @@
 <body>
   <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js')
-          .then(reg => console.log('[SW] registered:', reg.scope))
-          .catch(err => console.warn('[SW] failed:', err));
-      });
-    }
-  </script>
+
 </body>
 </html>

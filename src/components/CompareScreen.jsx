@@ -1,7 +1,6 @@
 import { PLAYBOOKS } from '../data/playbooks.js';
 import { FDB } from '../data/formations.js';
 import { PC, PL } from './FormationCard.jsx';
-import ThemeToggle from './ThemeToggle.jsx';
 
 const BOOK_NAMES = ["All", ...Object.keys(PLAYBOOKS)];
 
@@ -38,7 +37,7 @@ function FmList({ fms, borderColor }) {
   );
 }
 
-export default function CompareScreen({ compareA, setCompareA, compareB, setCompareB, isDark, toggleTheme }) {
+export default function CompareScreen({ compareA, setCompareA, compareB, setCompareB }) {
   const fmsA   = getFormations(compareA);
   const fmsB   = getFormations(compareB);
   const namesA = new Set(fmsA.map(f => f.name));
@@ -63,7 +62,6 @@ export default function CompareScreen({ compareA, setCompareA, compareB, setComp
               Compare Playbooks
             </div>
           </div>
-          <ThemeToggle isDark={isDark} onToggle={toggleTheme} />
         </div>
       </div>
 

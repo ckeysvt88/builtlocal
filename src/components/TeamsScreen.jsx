@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import { TEAMS, CONFERENCES } from '../data/teams.js';
-import ThemeToggle from './ThemeToggle.jsx';
 
 const PERS_LABELS = { p10:"5-WR", p11:"11p", p12:"12p (2 TE)", p21:"21p (FB)", p22:"22p Jumbo", trips:"Trips", empty:"Empty" };
 
-export default function TeamsScreen({ onBuildFromTeam, isDark, toggleTheme }) {
+export default function TeamsScreen({ onBuildFromTeam }) {
   const [teamConf, setTeamConf]     = useState("all");
   const [teamSearch, setTeamSearch] = useState("");
 
@@ -28,7 +27,6 @@ export default function TeamsScreen({ onBuildFromTeam, isDark, toggleTheme }) {
               Team Picker
             </div>
           </div>
-          <ThemeToggle isDark={isDark} onToggle={toggleTheme} />
         </div>
         <input
           value={teamSearch}
