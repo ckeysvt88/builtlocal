@@ -308,7 +308,7 @@ export default function GamePlanScreen({
         {/* ── ALL FORMATIONS TAB ── */}
         {mainTab === "all" && (
           <div>
-            {groupByPersonnel(scored).map(group => (
+            {groupByPersonnel(myBook === "All" ? scored.filter(f => f.sc >= 20) : scored).map(group => (
               <div key={group.label} style={{ marginBottom: 28 }}>
                 <div style={{ fontSize: 10, letterSpacing: "2px", color: "var(--color-gold)", textTransform: "uppercase", marginBottom: 12, fontWeight: "700", fontFamily: "var(--font-mono)", borderBottom: "1px solid var(--color-border-subtle)", paddingBottom: 7 }}>
                   {group.label} <span style={{ color: "var(--color-text-3)", fontWeight: "400" }}>({group.formations.length})</span>
