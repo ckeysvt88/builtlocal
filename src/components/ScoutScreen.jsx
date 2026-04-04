@@ -19,6 +19,7 @@ export default function ScoutScreen({
 }) {
   const [showPB, setShowPB] = useState(false);
   const [pendingDelete, setPendingDelete] = useState(null);
+  const [profileAction, setProfileAction] = useState(null); // name of profile to act on
 
   return (
     <div className="screen-enter" style={{ fontFamily: "var(--font-sans)", background: "var(--color-bg)", minHeight: "100dvh", color: "var(--color-text-1)", maxWidth: 720, margin: "0 auto" }}>
@@ -115,7 +116,7 @@ export default function ScoutScreen({
                   </div>
                 ) : (
                   <div key={n} style={{ display: "flex", alignItems: "center", background: "var(--color-surface-1)", border: "1px solid var(--color-border)", borderRadius: "var(--r-md)", overflow: "hidden", minHeight: 36 }}>
-                    <button onClick={() => navigateToNotes(n)} style={{ padding: "0 12px", minHeight: 36, background: "transparent", border: "none", color: "var(--color-text-2)", fontSize: 12, cursor: "pointer", fontFamily: "var(--font-mono)" }}>
+                    <button onClick={() => setProfileAction(n)} style={{ padding: "0 12px", minHeight: 36, background: "transparent", border: "none", color: "var(--color-text-2)", fontSize: 12, cursor: "pointer", fontFamily: "var(--font-mono)" }}>
                       {n}
                     </button>
                     <div style={{ width: 1, alignSelf: "stretch", background: "var(--color-border)" }}/>
@@ -292,6 +293,36 @@ export default function ScoutScreen({
           Designed by CK · Scheme Builders 2026
         </div>
       </div>
+
+      {/* ── Profile action modal ── */}
+      {profileAction && (
+        <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.85)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 200, padding: 20 }}>
+          <div style={{ background: "var(--color-surface-2)", border: "1px solid var(--color-gold)", borderRadius: "var(--r-lg)", padding: "20px 22px", width: "100%", maxWidth: 320 }}>
+            <div style={{ fontSize: 14, fontWeight: "700", color: "var(--color-text-1)", marginBottom: 4, fontFamily: "var(--font-mono)" }}>{profileAction}</div>
+            <div style={{ fontSize: 12, color: "var(--color-text-3)", marginBottom: 16 }}>What would you like to do?</div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              <button
+                onClick={() => { setSel(profiles[profileAction]); setScored([]); setProfileAction(null); }}
+                style={{ minHeight: 46, background: "var(--color-gold)", border: "none", borderRadius: "var(--r-md)", color: "#07080f", fontWeight: "700", fontSize: 14, cursor: "pointer", fontFamily: "var(--font-mono)" }}
+              >
+                Load Offensive Profile
+              </button>
+              <button
+                onClick={() => { navigateToNotes(profileAction); setProfileAction(null); }}
+                style={{ minHeight: 46, background: "transparent", border: "1px solid var(--color-border)", borderRadius: "var(--r-md)", color: "var(--color-text-1)", fontSize: 14, cursor: "pointer", fontFamily: "var(--font-mono)" }}
+              >
+                View Notes
+              </button>
+              <button
+                onClick={() => setProfileAction(null)}
+                style={{ minHeight: 46, background: "transparent", border: "1px solid var(--color-border-subtle)", borderRadius: "var(--r-md)", color: "var(--color-text-3)", fontSize: 13, cursor: "pointer", fontFamily: "var(--font-mono)" }}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* ── Save profile modal ── */}
       {modal && (
