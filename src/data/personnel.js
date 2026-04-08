@@ -5,6 +5,7 @@ export const PMAP = {
   p11:   { label: "11p (1 RB, 1 TE, 3 WR)", priority: "Sub in Nickelback. Base 4-3 LB on the slot = mismatch every time.", avoid: "Base 4-3 without nickelback sub, 5-2, 4-4 Split", blitzNote: "Varies by QB (18–28%). Higher vs pocket QB. Lower vs scrambler." },
   p12:   { label: "12p (1 RB, 2 TE)",      priority: "Base or Nickel+LB. Two TEs threaten run AND seam simultaneously.", avoid: "Dime (need LBs for run), 3-2-6 (hybrid LBs vs physical TEs = mismatch)", blitzNote: "Low-moderate (15–22%). TE hot routes beat blitz. Coverage wins this matchup." },
   p13:   { label: "13p (1 RB, 3 TE)",      priority: "Max box defenders immediately. Three TEs can block or release — identify the pass-catching TE pre-snap. Never go Nickel — you need LBs to account for the extra gap.", avoid: "Nickel, Dime, 3-2-6 (massively outnumbered at the point of attack)", blitzNote: "Very low (10–15%). Three TEs in protection collapses blitz lanes. Run defense wins this." },
+  p20:   { label: "20p (2 RB, 3 WR — Spread Power)", priority: "Sub into Nickel. Three WRs demand a nickel DB, but two RBs mean you cannot go Dime — the run threat is very real. The second RB can lead block, receive out of the flat, or serve as a pitch man. MLB must account for the second back every snap.", avoid: "Base 4-3 without nickelback (3 WRs expose every LB on WR), Dime (removes too many LBs for 2 RBs)", blitzNote: "Moderate (18–26%). Two RBs in protection absorbs extra rushers naturally. Selective pressure on confirmed passing downs — do not blitz blindly." },
   p21:   { label: "21p (2 RB, 1 TE)",      priority: "Base personnel. MLB must take the FB — frees everyone else for the HB.", avoid: "Dime, 3-2-6 (not enough run defenders)", blitzNote: "Low (14–20%). FB blocks blitzers naturally. Coverage gaps more dangerous." },
   p22:   { label: "22p (Heavy / Power)",    priority: "Maximum box defenders. Match his physicality — he outweighs you.", avoid: "Nickel (removes LBs vs 22p), 3-2-6 (disaster vs power run)", blitzNote: "Very low (10–16%). Gap integrity wins this matchup — don't sacrifice gaps." },
   trips: { label: "Trips / Bunch",          priority: "Trips floods one side with 3 receivers. Rotate coverage to match the overload.", avoid: "Standard base 4-3 without coverage adjustment — 3 DBs vs 3 receivers = overload wins", blitzNote: "Low-moderate (16–22%). Trips flooding exploits coverage busts from blitz." },
@@ -36,6 +37,10 @@ export const PERSONNEL_FAMILIES = {
   // ── 13 Personnel ───────────────────────────────────────────────
   p13_iForm:  { label:"13p I-Form",          desc:"3 TEs from I-Form — pure power run, every gap loaded", base:"p13" },
   p13_gun:    { label:"13p Gun / Spread TE", desc:"3 TEs from shotgun — TEs as seam and flat receivers", base:"p13" },
+  // ── 20 Personnel ───────────────────────────────────────────────
+  p20_gun:    { label:"20p Gun",           desc:"2 RBs, 3 WRs from shotgun — spread with dual-back option; nickel required, run is live", base:"p20" },
+  p20_pistol: { label:"20p Pistol",        desc:"2 RBs from pistol spread — outside zone and QB power with 3 WR window dressing", base:"p20" },
+  p20_trips:  { label:"20p Trips",         desc:"Trips surface from 20p — 3-on-2 flood with a 2nd RB as flat or lead threat", base:"p20" },
   // ── 21 Personnel ───────────────────────────────────────────────
   p21_iForm:  { label:"21p I-Form",        desc:"FB lead from I-Form — MLB must take the FB every snap", base:"p21" },
   p21_pistol: { label:"21p Pistol",        desc:"FB + TE from pistol — outside run with lead blocker", base:"p21" },
@@ -76,6 +81,10 @@ export const FAMILY_ADJUSTMENTS = {
   // ── 13 Personnel ─────────────────────────────────────────────────────────
   p13_iForm:  { extra:"13p I-Form — three TEs and a RB. Maximum box defenders required. Sub into 5-2 or 4-4 immediately. Identify the pass-catching TE pre-snap — he will release to the seam while the other two block. MLB walls the seam; OLBs set hard edges.", bias:["5-2 Normal","4-4 Split","3-4 Bear"] },
   p13_gun:    { extra:"13p from Gun — TEs are spread as receivers, not just blockers. All three can release to seams and flats simultaneously. Stay in base with LBs; use Cover 3 so each hook-curl zone accounts for a TE releasing underneath. Nickel DBs cannot match up physically with 3 TEs.", bias:["4-3 Under","3-4 Odd","4-3 Even 6-1"] },
+  // ── 20 Personnel ─────────────────────────────────────────────────────────
+  p20_gun:    { extra:"20p Gun — 2 RBs and 3 WRs from spread. Sub into Nickel but keep one LB active — the 2nd RB is live as a runner or receiver out of the flat. CBs at 7 yards, never press. SS walks to the flat to eliminate the 2nd RB checkdown.", bias:["Nickel 3-3 Over","Nickel Wide","3-3-5 Stack"] },
+  p20_pistol: { extra:"20p Pistol — dual-RB pistol means outside zone and power are equally live. Nickel keeps coverage on 3 WRs while the LB accounts for the 2nd back. DE rule: contain the perimeter every snap — do not crash on zone fakes with 2 RBs in the backfield.", bias:["Nickel 3-3 Over","4-3 Under","3-3-5 Over Flex"] },
+  p20_trips:  { extra:"20p Trips — trips surface floods one side while the 2nd RB threatens the flat or acts as a lead blocker. Cover 6 to the trips side; rotate safety at the snap only. MLB must identify the 2nd back's assignment before the snap — flat receiver or blocker changes your run fit.", bias:["3-3-5 Split","Nickel Wide","Nickel 3-3 Mint"] },
   // ── 21 Personnel ─────────────────────────────────────────────────────────
   p21_iForm:  { extra:"I-Form 21p — MLB rule is absolute: take the FB on every snap. That frees your other LBs to attack the HB untouched. Never blitz the MLB. Cover 1 or Cover 3 behind — don't get cute.", bias:["4-3 Even 6-1","4-3 Under","3-4 Bear"] },
   p21_pistol: { extra:"21p from Pistol adds a FB blocker to the outside run game. SS must be the force player — attacks the outside arm of the lead blocker. OLB never folds inside. The run will bounce outside.", bias:["4-3 Under","3-4 Tite","4-3 Over"] },
@@ -144,6 +153,14 @@ export function getAvailableFamilies(flat) {
       fams.push("p13_gun");
   }
 
+  // ── 20 Personnel ──────────────────────────────────────────────
+  if (has("p20")) {
+    fams.push("p20_gun");
+    if (has("outside_run") || has("inside_run") || has("hb_stretch") || has("rpo"))
+      fams.push("p20_pistol");
+    if (has("trips") || has("motion_heavy")) fams.push("p20_trips");
+  }
+
   // ── 21 Personnel ──────────────────────────────────────────────
   if (has("p21") || has("fb_lead")) {
     if (has("fb_lead") || has("strong_oline") || has("run_heavy_1st") || has("inside_run"))
@@ -181,6 +198,7 @@ export function getAvailableFamilies(flat) {
     else if (has("p11")) fams.push("p11_gun");
     else if (has("p12")) fams.push("p12_gun");
     else if (has("p13")) fams.push("p13_iForm");
+    else if (has("p20")) fams.push("p20_gun");
     else if (has("p21")) fams.push("p21_iForm");
     else if (has("p22")) fams.push("p22_iForm");
     else fams.push("p11_gun"); // fallback

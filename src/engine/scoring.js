@@ -66,6 +66,7 @@ export function scoreForPersonnel(personnelTag, allTraits) {
     p11:  ["p11","rpo","play_action","quick_game","outside_run","inside_run","elite_wr","slot_threat","trips","motion_heavy"],
     p12:  ["p12","p21","elite_te","inside_run","outside_run","play_action","seam_routes","run_heavy_1st","strong_oline"],
     p13:  ["p12","p13","elite_te","inside_run","strong_oline","run_heavy_1st","fb_lead","p21","seam_routes"],
+    p20:  ["p20","p10","p11","elite_wr","slot_threat","outside_run","inside_run","rpo","trips","motion_heavy","elite_rb"],
     p21:  ["p21","p22","fb_lead","inside_run","counter_trap","strong_oline","run_heavy_1st","short_yardage_run"],
     p22:  ["p22","p21","strong_oline","inside_run","run_heavy_1st","fb_lead","four_down_go","short_yardage_run"],
     trips:["trips","p10","p11","elite_wr","slot_threat","motion_heavy","rpo","quick_game","flat_attack"],
@@ -94,7 +95,7 @@ export function groupByPersonnel(scored) {
     if (!groups[key]) groups[key] = [];
     groups[key].push(f);
   }
-  return order.filter(k => groups[k]).map(k => ({ label: k, formations: groups[k] }));
+  return order.filter(k => groups[k]).map(k => ({ label: k, formations: groups[k].sort((a, b) => b.sc - a.sc) }));
 }
 
 export function scoreForFamily(familyId, allTraits) {
@@ -103,7 +104,7 @@ export function scoreForFamily(familyId, allTraits) {
   const adj = FAMILY_ADJUSTMENTS[familyId];
   const biasNames = adj ? adj.bias : [];
   const baseResults = scoreForPersonnel(family.base, allTraits);
-  const biased = baseResults.filter(f => biasNames.includes(f.name));
+  const biased = baseResults.filter(f => biasNames.includes(f.name)).sort((a, b) => b.sc - a.sc);
   const rest   = baseResults.filter(f => !biasNames.includes(f.name));
   return [...biased, ...rest];
 }
